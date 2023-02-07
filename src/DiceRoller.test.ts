@@ -52,4 +52,10 @@ describe('Dice roller', () => {
 
     expect(diceRoller.roll('4d12')).toBe(3 + 5 + 1 + 12)
   })
+
+  it('can roll 1d4+1', () => {
+    random.setNextForRange(2, 1, 4)
+
+    expect(diceRoller.roll('1d4+1')).toBe(2 + 1)
+  })
 })
