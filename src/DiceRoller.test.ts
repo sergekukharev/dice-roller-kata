@@ -58,4 +58,19 @@ describe('Dice roller', () => {
 
     expect(diceRoller.roll('1d4+1')).toBe(2 + 1)
   })
+
+  it('can roll (x)d(y)+z', () => {
+    random.setNextForRange(13, 1, 100)
+    random.setNextForRange(44, 1, 100)
+
+    expect(diceRoller.roll('2d100+23')).toBe(13 + 44 + 23)
+  })
+
+  it('can roll 2d4 + 1d8 + 3', () => {
+    random.setNextForRange(1, 1, 4)
+    random.setNextForRange(4, 1, 4)
+    random.setNextForRange(3, 1, 8)
+
+    expect(diceRoller.roll('2d4 + 1d8 + 3')).toBe(1 + 4 + 3 + 3)
+  })
 })
