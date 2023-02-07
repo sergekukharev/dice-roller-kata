@@ -7,7 +7,11 @@ export class DiceRoller {
     this._random = random
   }
 
-  roll (spec: string): number {
+  roll (spec: DiceRollSpec): number {
+    return this.rollOld(spec.canonical())
+  }
+
+  private rollOld (spec: string): number {
     let start = 0
 
     let sum = 0
