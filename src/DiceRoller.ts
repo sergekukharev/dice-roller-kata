@@ -8,6 +8,8 @@ export default class DiceRoller {
   }
 
   roll (spec: string): number {
-    return this._random.int(1, 4)
+    const parts = spec.split('d')
+
+    return this._random.int(Number.parseInt(parts[0]), Number.parseInt(parts[1]))
   }
 }
