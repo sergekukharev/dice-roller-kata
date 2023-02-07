@@ -1,4 +1,4 @@
-import { DiceRoller } from './DiceRoller'
+import { DiceRoll, DiceRoller } from './DiceRoller'
 import { FakeRandom } from './Random'
 
 describe('DiceRoller', () => {
@@ -103,7 +103,37 @@ describe('DiceRoller', () => {
   })
 
   /*
-          Intentionally didn't do:
-          - "1d4++1d4" case
-           */
+                        Intentionally didn't do:
+                        - "1d4++1d4" case
+                         */
+})
+
+describe('DiceRoll', () => {
+  it('has canonical dice roll spec representation', () => {
+    expect(new DiceRoll('1d4 + 2d6 + 1').canonical()).toBe('1d4 + 2d6 + 1')
+  })
+
+  it('parses simple specs like "1d4"', () => {
+    const roll = new DiceRoll('1d4')
+
+    expect(roll.positiveRolls()).toEqual(new Map<number, number>([[4, 1]]))
+  })
+
+  it('parses negative specs', () => {
+    const roll = new DiceRoll('-1d4')
+
+    expect(roll.negativeRolls()).toEqual(new Map<number, number>([[4, 1]]))
+  })
+
+  it('parses one roll with multiple but same dice', () => {
+    const roll = new DiceRoll('2d4')
+
+    expect(roll.positiveRolls()).toEqual(new Map<number, number>([[4, 2]]))
+  })
+
+  it('parses multiple rolls of the same die', () => {
+    const roll = new DiceRoll('1d4 + 1d4')
+
+    expect(roll.positiveRolls()).toEqual(new Map<number, number>([[4, 2]]))
+  })
 })
