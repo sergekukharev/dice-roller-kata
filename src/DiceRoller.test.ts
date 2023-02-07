@@ -79,7 +79,11 @@ describe('Dice roller', () => {
     expect(diceRoller.roll('1d4-1')).toBe(2 - 1)
   })
 
-  // TODO never less than 0
+  it('rolls result that is always non-negative', () => {
+    random.setNextForRange(1, 1, 4)
+
+    expect(diceRoller.roll('1d4-300')).toBe(0)
+  })
 
   it('handles very complex cases well', () => {
     random.setNextForRange(1, 1, 4)
@@ -93,7 +97,7 @@ describe('Dice roller', () => {
   })
 
   /*
-    Intentionally didn't do:
-    - "1d4++1d4" case
-     */
+      Intentionally didn't do:
+      - "1d4++1d4" case
+       */
 })
