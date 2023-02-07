@@ -28,4 +28,11 @@ describe('Dice roller', () => {
     expect(diceRoller.roll('1d20')).toBe(20)
     expect(diceRoller.roll('1d100')).toBe(1)
   })
+  it('works well with multiple rolls of the same die', () => {
+    random.setNextForRange(1, 1, 6)
+    random.setNextForRange(4, 1, 6)
+
+    expect(diceRoller.roll('1d6')).toBe(1)
+    expect(diceRoller.roll('1d6')).toBe(4)
+  })
 })
