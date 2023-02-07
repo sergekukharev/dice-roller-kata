@@ -89,7 +89,7 @@ export class DiceRollSpec {
     const parts = spec.split('d')
 
     if (parts.length === 1) {
-      isPositive ? this._absoluteModifier += Number.parseInt(parts[0]) : this._absoluteModifier += Number.parseInt(parts[-1])
+      isPositive ? this._absoluteModifier += Number.parseInt(parts[0]) : this._absoluteModifier -= Number.parseInt(parts[0])
       return
     }
 
