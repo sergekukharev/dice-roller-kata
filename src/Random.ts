@@ -14,10 +14,10 @@ export class RealRandom implements Random {
 }
 
 export class FakeRandom implements Random {
-  private readonly nextInt: Map<string, number> = new Map<string, number>()
+  private readonly nextInt: Map<string, number[]> = new Map<string, number[]>()
 
   int (min: number, max: number): number {
-    const res = this.nextInt.get(this.makeKey(min, max))
+    const res = this.nextInt.get(this.makeKey(min, max))?.shift()
 
     if (typeof res !== 'undefined') return res
 
@@ -29,7 +29,10 @@ export class FakeRandom implements Random {
     if (min > max) throw new Error('Invalid range')
     if (next > max || next < min) throw new Error('Next is outside of the range')
 
-    this.nextInt.set(this.makeKey(min, max), next)
+    const key = this.makeKey(min, max)
+    if (!this.nextInt.has(key)) this.nextInt.set(key, [])
+
+    this.nextInt.get(key)?.push(next)
   }
 
   private makeKey (min: number, max: number): string {

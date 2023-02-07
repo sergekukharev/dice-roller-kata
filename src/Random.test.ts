@@ -87,4 +87,14 @@ describe('FakeRandom class', () => {
       random.setNextForRange(2, 3, 4)
     }).toThrow()
   })
+
+  it('generates multiple integers in the same range without repeating itself', () => {
+    random.setNextForRange(2, 1, 4)
+    random.setNextForRange(4, 1, 4)
+    random.setNextForRange(1, 1, 4)
+
+    expect(random.int(1, 4)).toBe(2)
+    expect(random.int(1, 4)).toBe(4)
+    expect(random.int(1, 4)).toBe(1)
+  })
 })
