@@ -9,7 +9,13 @@ export default class DiceRoller {
 
   roll (spec: string): number {
     const parts = spec.split('d')
+    const times = Number.parseInt(parts[0])
 
-    return this._random.int(Number.parseInt(parts[0]), Number.parseInt(parts[1]))
+    let result = 0
+    for (let i = 0; i < times; i++) {
+      result += this._random.int(1, Number.parseInt(parts[1]))
+    }
+
+    return result
   }
 }

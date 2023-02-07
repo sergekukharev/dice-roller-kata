@@ -35,4 +35,13 @@ describe('Dice roller', () => {
     expect(diceRoller.roll('1d6')).toBe(1)
     expect(diceRoller.roll('1d6')).toBe(4)
   })
+  it('rolls 2d4', () => {
+    const a = 2
+    const b = 4
+
+    random.setNextForRange(a, 1, 4)
+    random.setNextForRange(b, 1, 4)
+
+    expect(diceRoller.roll('2d4')).toBe(a + b)
+  })
 })
