@@ -46,6 +46,10 @@ describe('RealRandom class', () => {
 describe('FakeRandom class', () => {
   const random = new FakeRandom()
 
+  afterEach(() => {
+    random.clear()
+  })
+
   it('throws when uninitiated', () => {
     expect(() => random.int(1, 2)).toThrow()
   })
@@ -60,8 +64,27 @@ describe('FakeRandom class', () => {
     expect(random.int(min, max)).toBe(next)
   })
 
-  // TODO range does not exist
-  // TODO do not allow setting non-integers
-  // TODO validate range
-  // TODO validate next is within range
+  it('throws if range was not defined', () => {
+    random.setNextForRange(1, 1, 6)
+
+    expect(() => random.int(1, 4)).toThrow()
+  })
+
+  it('does not allow to set numbers that are not integers', () => {
+    expect(() => {
+      random.setNextForRange(0.1, 6, 3)
+    }).toThrow()
+  })
+
+  it('throws when invalid range is provided', () => {
+    expect(() => {
+      random.setNextForRange(3, 2, 2)
+    }).toThrow()
+  })
+
+  it('throws when next integer is out of range provided', () => {
+    expect(() => {
+      random.setNextForRange(2, 3, 4)
+    }).toThrow()
+  })
 })

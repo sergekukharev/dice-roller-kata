@@ -25,10 +25,18 @@ export class FakeRandom implements Random {
   }
 
   setNextForRange (next: number, min: number, max: number): void {
+    if (!Number.isInteger(next)) throw new Error('Works only with integers')
+    if (min > max) throw new Error('Invalid range')
+    if (next > max || next < min) throw new Error('Next is outside of the range')
+
     this.nextInt.set(this.makeKey(min, max), next)
   }
 
   private makeKey (min: number, max: number): string {
     return [min, max].join('_')
+  }
+
+  clear (): void {
+    this.nextInt.clear()
   }
 }
