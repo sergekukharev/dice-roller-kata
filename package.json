@@ -1,0 +1,22 @@
+{
+  "name": "dice-roller-kata",
+  "version": "1.0.0",
+  "description": "Node implementation of Dice Roller Kata",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sergekukharev/dice-roller-kata.git"
+  },
+  "keywords": [
+    "kata"
+  ],
+  "author": "Sergei Kukhariev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sergekukharev/dice-roller-kata/issues"
+  },
+  "homepage": "https://github.com/sergekukharev/dice-roller-kata#readme"
+}
