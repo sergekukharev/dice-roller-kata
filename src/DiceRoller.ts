@@ -1,6 +1,6 @@
 import { type Random } from './Random'
 
-export default class DiceRoller {
+export class DiceRoller {
   private readonly _random: Random
 
   constructor (random: Random) {

@@ -1,7 +1,7 @@
-import DiceRoller from './DiceRoller'
+import { DiceRoller } from './DiceRoller'
 import { FakeRandom } from './Random'
 
-describe('Dice roller', () => {
+describe('DiceRoller', () => {
   const random = new FakeRandom()
   const diceRoller = new DiceRoller(random)
 
@@ -103,7 +103,7 @@ describe('Dice roller', () => {
   })
 
   /*
-      Intentionally didn't do:
-      - "1d4++1d4" case
-       */
+          Intentionally didn't do:
+          - "1d4++1d4" case
+           */
 })
