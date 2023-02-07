@@ -1,5 +1,13 @@
+import { type Random } from './Random'
+
 export default class DiceRoller {
-  helloWorld (): string {
-    return 'Hello, world'
+  private readonly _random: Random
+
+  constructor (random: Random) {
+    this._random = random
+  }
+
+  roll (spec: string): number {
+    return this._random.int(1, 4)
   }
 }
