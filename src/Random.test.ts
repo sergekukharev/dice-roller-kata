@@ -97,4 +97,12 @@ describe('FakeRandom class', () => {
     expect(random.int(1, 4)).toBe(4)
     expect(random.int(1, 4)).toBe(1)
   })
+  it('throws if no more numbers left in the range', () => {
+    random.setNextForRange(2, 1, 4)
+    random.setNextForRange(4, 1, 4)
+
+    random.int(1, 4)
+    random.int(1, 4)
+    expect(() => random.int(1, 4)).toThrow()
+  })
 })
