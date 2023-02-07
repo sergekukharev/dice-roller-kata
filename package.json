@@ -18,5 +18,11 @@
   "bugs": {
     "url": "https://github.com/sergekukharev/dice-roller-kata/issues"
   },
-  "homepage": "https://github.com/sergekukharev/dice-roller-kata#readme"
+  "homepage": "https://github.com/sergekukharev/dice-roller-kata#readme",
+  "devDependencies": {
+    "@types/jest": "^29.4.0",
+    "jest": "^29.4.2",
+    "ts-jest": "^29.0.5",
+    "typescript": "^4.9.5"
+  }
 }
