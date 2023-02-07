@@ -136,4 +136,17 @@ describe('DiceRollSpec', () => {
 
     expect(roll.positiveRolls()).toEqual(new Map<number, number>([[4, 2]]))
   })
+
+  it('parses absolute modifiers', () => {
+    const roll = new DiceRollSpec('1d4 + 3')
+
+    expect(roll.absoluteModifier()).toEqual(3)
+  })
+
+  it('parses positive and negative rolls of the same die size', () => {
+    const roll = new DiceRollSpec('2d4 - 1d4')
+
+    expect(roll.positiveRolls()).toEqual(new Map<number, number>([[4, 2]]))
+    expect(roll.negativeRolls()).toEqual(new Map<number, number>([[4, 1]]))
+  })
 })

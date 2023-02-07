@@ -58,6 +58,7 @@ export class DiceRollSpec {
   private readonly _spec: string
   private readonly _positiveRolls: Map<number, number> = new Map<number, number>()
   private readonly _negativeRolls: Map<number, number> = new Map<number, number>()
+  private _absoluteModifier: number = 0
 
   constructor (spec: string) {
     this._spec = spec
@@ -88,7 +89,7 @@ export class DiceRollSpec {
     const parts = spec.split('d')
 
     if (parts.length === 1) {
-      // TODO
+      isPositive ? this._absoluteModifier += Number.parseInt(parts[0]) : this._absoluteModifier += Number.parseInt(parts[-1])
       return
     }
 
@@ -114,5 +115,9 @@ export class DiceRollSpec {
 
   negativeRolls (): Map<number, number> {
     return this._negativeRolls
+  }
+
+  absoluteModifier (): number {
+    return this._absoluteModifier
   }
 }
