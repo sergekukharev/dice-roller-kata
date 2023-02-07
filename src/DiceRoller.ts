@@ -8,14 +8,33 @@ export default class DiceRoller {
   }
 
   roll (spec: string): number {
-    const parts = spec.split('+')
+    let start = 0
 
     let sum = 0
-    parts.forEach(part => {
-      sum += this.rollGroup(part)
-    })
+    let nextSign = 1
+    for (let i = 0; i < spec.length; i++) {
+      if (spec[i] === '+') {
+        sum += nextSign * this.rollGroup(spec.substring(start, i))
+        start = i + 1
+        nextSign = 1
+      } else if (spec[i] === '-') {
+        sum += nextSign * this.rollGroup(spec.substring(start, i))
+        start = i + 1
+        nextSign = -1
+      }
+    }
+
+    if (start < spec.length) sum += nextSign * this.rollGroup(spec.substring(start, spec.length))
 
     return sum
+
+    // const parts = spec.split('+')
+    //
+    // parts.forEach(part => {
+    //   sum += this.rollGroup(part)
+    // })
+    //
+    // return sum
   }
 
   rollGroup (spec: string): number {

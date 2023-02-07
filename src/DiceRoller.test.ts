@@ -73,4 +73,14 @@ describe('Dice roller', () => {
 
     expect(diceRoller.roll('2d4 + 1d8 + 3')).toBe(1 + 4 + 3 + 3)
   })
+  it('works with negative modifiers', () => {
+    random.setNextForRange(2, 1, 4)
+
+    expect(diceRoller.roll('1d4-1')).toBe(2 - 1)
+  })
+
+  /*
+  Intentionally didn't do:
+  - "1d4++1d4" case
+   */
 })
