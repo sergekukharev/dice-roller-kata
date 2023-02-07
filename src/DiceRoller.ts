@@ -8,40 +8,18 @@ export class DiceRoller {
   }
 
   roll (spec: DiceRollSpec): number {
-    return this.rollOld(spec.canonical())
-  }
-
-  private rollOld (spec: string): number {
-    let start = 0
-
     let sum = 0
-    let nextSign = 1
-    for (let i = 0; i < spec.length; i++) {
-      if (spec[i] === '+') {
-        sum += nextSign * this.rollGroup(spec.substring(start, i))
-        start = i + 1
-        nextSign = 1
-      } else if (spec[i] === '-') {
-        sum += nextSign * this.rollGroup(spec.substring(start, i))
-        start = i + 1
-        nextSign = -1
-      }
-    }
+    spec._positiveRolls().forEach((times, size) => {
+      sum += this.rollMultipleOfSame(times, size)
+    })
 
-    if (start < spec.length) sum += nextSign * this.rollGroup(spec.substring(start, spec.length))
+    spec._negativeRolls().forEach((times, size) => {
+      sum -= this.rollMultipleOfSame(times, size)
+    })
+
+    sum += spec._absoluteModifier()
 
     return sum > 0 ? sum : 0
-  }
-
-  private rollGroup (spec: string): number {
-    const parts = spec.split('d')
-
-    if (parts.length === 1) return Number.parseInt(parts[0])
-
-    const times = Number.parseInt(parts[0])
-    const size = Number.parseInt(parts[1])
-
-    return this.rollMultipleOfSame(times, size)
   }
 
   private rollMultipleOfSame (times: number, size: number): number {
