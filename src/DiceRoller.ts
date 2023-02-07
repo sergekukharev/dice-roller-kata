@@ -27,14 +27,6 @@ export default class DiceRoller {
     if (start < spec.length) sum += nextSign * this.rollGroup(spec.substring(start, spec.length))
 
     return sum
-
-    // const parts = spec.split('+')
-    //
-    // parts.forEach(part => {
-    //   sum += this.rollGroup(part)
-    // })
-    //
-    // return sum
   }
 
   rollGroup (spec: string): number {
