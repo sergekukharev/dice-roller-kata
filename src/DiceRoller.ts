@@ -29,7 +29,7 @@ export class DiceRoller {
     return sum > 0 ? sum : 0
   }
 
-  rollGroup (spec: string): number {
+  private rollGroup (spec: string): number {
     const parts = spec.split('d')
 
     if (parts.length === 1) return Number.parseInt(parts[0])
@@ -40,7 +40,7 @@ export class DiceRoller {
     return this.rollMultipleOfSame(times, size)
   }
 
-  rollMultipleOfSame (times: number, size: number): number {
+  private rollMultipleOfSame (times: number, size: number): number {
     let result = 0
     for (let i = 0; i < times; i++) {
       result += this.rollOneDie(size)
@@ -49,16 +49,16 @@ export class DiceRoller {
     return result
   }
 
-  rollOneDie (size: number): number {
+  private rollOneDie (size: number): number {
     return this._random.int(1, size)
   }
 }
 
 export class DiceRollSpec {
   private readonly _spec: string
-  private readonly _positiveRolls: Map<number, number> = new Map<number, number>()
-  private readonly _negativeRolls: Map<number, number> = new Map<number, number>()
-  private _absoluteModifier: number = 0
+  private readonly positiveRolls: Map<number, number> = new Map<number, number>()
+  private readonly negativeRolls: Map<number, number> = new Map<number, number>()
+  private absoluteModifier: number = 0
 
   constructor (spec: string) {
     this._spec = spec
@@ -89,7 +89,7 @@ export class DiceRollSpec {
     const parts = spec.split('d')
 
     if (parts.length === 1) {
-      isPositive ? this._absoluteModifier += Number.parseInt(parts[0]) : this._absoluteModifier -= Number.parseInt(parts[0])
+      isPositive ? this.absoluteModifier += Number.parseInt(parts[0]) : this.absoluteModifier -= Number.parseInt(parts[0])
       return
     }
 
@@ -97,11 +97,11 @@ export class DiceRollSpec {
     const size = Number.parseInt(parts[1])
 
     if (isPositive) {
-      const current = this._positiveRolls.get(size) ?? 0
-      this._positiveRolls.set(size, current + times)
+      const current = this.positiveRolls.get(size) ?? 0
+      this.positiveRolls.set(size, current + times)
     } else {
-      const current = this._negativeRolls.get(size) ?? 0
-      this._negativeRolls.set(size, current + times)
+      const current = this.negativeRolls.get(size) ?? 0
+      this.negativeRolls.set(size, current + times)
     }
   }
 
@@ -109,15 +109,15 @@ export class DiceRollSpec {
     return this._spec
   }
 
-  positiveRolls (): Map<number, number> {
-    return this._positiveRolls
+  _positiveRolls (): Map<number, number> {
+    return this.positiveRolls
   }
 
-  negativeRolls (): Map<number, number> {
-    return this._negativeRolls
+  _negativeRolls (): Map<number, number> {
+    return this.negativeRolls
   }
 
-  absoluteModifier (): number {
-    return this._absoluteModifier
+  _absoluteModifier (): number {
+    return this.absoluteModifier
   }
 }

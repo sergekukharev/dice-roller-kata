@@ -103,9 +103,9 @@ describe('DiceRoller', () => {
   })
 
   /*
-                                    Intentionally didn't do:
-                                    - "1d4++1d4" case
-                                     */
+                                        Intentionally didn't do:
+                                        - "1d4++1d4" case
+                                         */
 })
 
 describe('DiceRollSpec', () => {
@@ -114,56 +114,56 @@ describe('DiceRollSpec', () => {
   })
 
   it('parses simple specs like "1d4"', () => {
-    const roll = new DiceRollSpec('1d4')
+    const spec = new DiceRollSpec('1d4')
 
-    expect(roll.positiveRolls()).toEqual(new Map<number, number>([[4, 1]]))
+    expect(spec._positiveRolls()).toEqual(new Map<number, number>([[4, 1]]))
   })
 
   it('parses negative specs', () => {
-    const roll = new DiceRollSpec('-1d4')
+    const spec = new DiceRollSpec('-1d4')
 
-    expect(roll.negativeRolls()).toEqual(new Map<number, number>([[4, 1]]))
+    expect(spec._negativeRolls()).toEqual(new Map<number, number>([[4, 1]]))
   })
 
   it('parses one roll with multiple but same dice', () => {
-    const roll = new DiceRollSpec('2d4')
+    const spec = new DiceRollSpec('2d4')
 
-    expect(roll.positiveRolls()).toEqual(new Map<number, number>([[4, 2]]))
+    expect(spec._positiveRolls()).toEqual(new Map<number, number>([[4, 2]]))
   })
 
   it('parses multiple rolls of the same die', () => {
-    const roll = new DiceRollSpec('1d4 + 1d4')
+    const spec = new DiceRollSpec('1d4 + 1d4')
 
-    expect(roll.positiveRolls()).toEqual(new Map<number, number>([[4, 2]]))
+    expect(spec._positiveRolls()).toEqual(new Map<number, number>([[4, 2]]))
   })
 
   it('parses absolute modifiers', () => {
-    const roll = new DiceRollSpec('1d4 + 3')
+    const spec = new DiceRollSpec('1d4 + 3')
 
-    expect(roll.absoluteModifier()).toEqual(3)
+    expect(spec._absoluteModifier()).toEqual(3)
   })
 
   it('parses positive and negative rolls of the same die size', () => {
-    const roll = new DiceRollSpec('2d4 - 1d4')
+    const spec = new DiceRollSpec('2d4 - 1d4')
 
-    expect(roll.positiveRolls()).toEqual(new Map<number, number>([[4, 2]]))
-    expect(roll.negativeRolls()).toEqual(new Map<number, number>([[4, 1]]))
+    expect(spec._positiveRolls()).toEqual(new Map<number, number>([[4, 2]]))
+    expect(spec._negativeRolls()).toEqual(new Map<number, number>([[4, 1]]))
   })
   it('parses modifier only (positive)', () => {
-    const roll = new DiceRollSpec('3')
+    const spec = new DiceRollSpec('3')
 
-    expect(roll.absoluteModifier()).toEqual(3)
+    expect(spec._absoluteModifier()).toEqual(3)
   })
   it('parses modifier only (positive)', () => {
-    const roll = new DiceRollSpec('-3')
+    const spec = new DiceRollSpec('-3')
 
-    expect(roll.absoluteModifier()).toEqual(-3)
+    expect(spec._absoluteModifier()).toEqual(-3)
   })
 
   it('handles very complex cases well', () => {
     const spec = new DiceRollSpec('2d4 - 1d8 + 3 + 3d4 + 1d6 + 4 - 1')
-    expect(spec.positiveRolls()).toEqual(new Map<number, number>([[4, 5], [6, 1]]))
-    expect(spec.negativeRolls()).toEqual(new Map<number, number>([[8, 1]]))
-    expect(spec.absoluteModifier()).toBe(6)
+    expect(spec._positiveRolls()).toEqual(new Map<number, number>([[4, 5], [6, 1]]))
+    expect(spec._negativeRolls()).toEqual(new Map<number, number>([[8, 1]]))
+    expect(spec._absoluteModifier()).toBe(6)
   })
 })
