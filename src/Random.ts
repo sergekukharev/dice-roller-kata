@@ -4,6 +4,7 @@ export interface Random {
 
 export class RealRandom implements Random {
   int (minInclusive: number, maxInclusive: number): number {
+    if (minInclusive > maxInclusive) throw new Error('Wrong input')
     if (minInclusive === maxInclusive) return minInclusive
 
     const min = Math.ceil(minInclusive)

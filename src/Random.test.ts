@@ -25,4 +25,20 @@ describe('RealRandom class', () => {
       expect(realRandom.int(3, 3)).toBe(3)
     }
   })
+
+  it('throws when invalid range is provided', () => {
+    expect(() => realRandom.int(3, 2)).toThrow()
+  })
+
+  it('works with negative numbers', () => {
+    for (let i = 0; i < 1000; i++) {
+      expect([-3, -2, -1]).toContain(realRandom.int(-3, -1))
+    }
+  })
+
+  it('works with negative-to-positive ranges', () => {
+    for (let i = 0; i < 1000; i++) {
+      expect([-3, -2, -1, 0, 1, 2]).toContain(realRandom.int(-3, 2))
+    }
+  })
 })
