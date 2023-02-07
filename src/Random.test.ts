@@ -1,4 +1,4 @@
-import { RealRandom } from './Random'
+import { FakeRandom, RealRandom } from './Random'
 
 describe('RealRandom class', () => {
   const realRandom = new RealRandom()
@@ -41,4 +41,27 @@ describe('RealRandom class', () => {
       expect([-3, -2, -1, 0, 1, 2]).toContain(realRandom.int(-3, 2))
     }
   })
+})
+
+describe('FakeRandom class', () => {
+  const random = new FakeRandom()
+
+  it('throws when uninitiated', () => {
+    expect(() => random.int(1, 2)).toThrow()
+  })
+
+  it('allows to define next returned integer per range', () => {
+    const next = 3
+    const min = 3
+    const max = 5
+
+    random.setNextForRange(next, min, max)
+
+    expect(random.int(min, max)).toBe(next)
+  })
+
+  // TODO range does not exist
+  // TODO do not allow setting non-integers
+  // TODO validate range
+  // TODO validate next is within range
 })

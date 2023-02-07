@@ -12,3 +12,23 @@ export class RealRandom implements Random {
     return Math.floor(Math.random() * (max - min) + min)
   }
 }
+
+export class FakeRandom implements Random {
+  private readonly nextInt: Map<string, number> = new Map<string, number>()
+
+  int (min: number, max: number): number {
+    const res = this.nextInt.get(this.makeKey(min, max))
+
+    if (typeof res !== 'undefined') return res
+
+    throw new Error('Next number in this range not defined')
+  }
+
+  setNextForRange (next: number, min: number, max: number): void {
+    this.nextInt.set(this.makeKey(min, max), next)
+  }
+
+  private makeKey (min: number, max: number): string {
+    return [min, max].join('_')
+  }
+}
