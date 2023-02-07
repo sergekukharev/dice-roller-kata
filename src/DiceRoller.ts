@@ -54,7 +54,7 @@ export class DiceRoller {
   }
 }
 
-export class DiceRoll {
+export class DiceRollSpec {
   private readonly _spec: string
   private readonly _positiveRolls: Map<number, number> = new Map<number, number>()
   private readonly _negativeRolls: Map<number, number> = new Map<number, number>()
